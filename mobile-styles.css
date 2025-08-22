@@ -1,0 +1,352 @@
+/* Mobile and responsive styles for Python Mastery Handbook */
+
+/* Base Mobile First Approach */
+@media screen and (max-width: 768px) {
+  /* General typography adjustments for readability */
+  html {
+    font-size: 16px; /* Slightly larger base font for better readability on mobile */
+  }
+  
+  /* Heading size adjustments for mobile */
+  h1 {
+    font-size: calc(var(--font-size-3xl) * 0.85);
+    line-height: 1.3;
+  }
+  
+  h2 {
+    font-size: calc(var(--font-size-2xl) * 0.85);
+    line-height: 1.3;
+  }
+  
+  h3 {
+    font-size: calc(var(--font-size-xl) * 0.9);
+    line-height: 1.3;
+  }
+  
+  /* Code blocks are more readable on mobile */
+  pre, code {
+    font-size: 14px; /* Slightly smaller code font for better fit */
+    padding: var(--space-8);
+    border-radius: var(--radius-sm);
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  
+  /* Tables and code comparisons become scrollable on mobile */
+  .table-container, .table-responsive, .code-comparison {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  }
+  
+  /* Code comparisons need to be scrollable horizontally on mobile */
+  .code-comparison {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Make code blocks full-width on mobile */
+  .code-block {
+    width: 100%;
+    margin-bottom: var(--space-16);
+  }
+
+  /* Adjust code headers on mobile */
+  .code-header {
+    padding: var(--space-8) var(--space-12);
+    flex-wrap: wrap;
+  }
+  
+  /* Header optimizations */
+  .header {
+    padding: var(--space-8) var(--space-12);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: var(--color-background);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .header-content {
+    justify-content: space-between;
+    padding: 0;
+  }
+  
+  .header-subtitle {
+    display: none; /* Hide subtitle on very small screens */
+  }
+
+  /* Sidebar optimizations for mobile */
+  .sidebar {
+    position: fixed;
+    left: -100%;
+    width: 80%;
+    max-width: 300px;
+    transition: left 0.3s ease;
+    z-index: 100;
+  }
+
+  body.sidebar-open .sidebar {
+    left: 0;
+  }
+
+  /* Adjust search bar for mobile */
+  .search-container {
+    width: 100%;
+    max-width: none;
+  }
+  
+  /* Main content padding adjustments for mobile */
+  .main-content {
+    padding: var(--space-12) var(--space-16);
+  }
+  
+  /* Chapter content adjustments for readability on mobile */
+  .chapter-content {
+    padding: 0;
+  }
+  
+  /* Chapter headers for mobile */
+  .chapter-header {
+    padding: var(--space-16) 0;
+  }
+  
+  /* Better touch targets for navigation */
+  .prev-chapter, .next-chapter {
+    padding: var(--space-12);
+    min-height: 50px;
+  }
+  
+  /* Sidebar improvements */
+  .sidebar {
+    width: 280px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 100;
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Improved sidebar toggle animation */
+  .sidebar-toggle {
+    display: flex;
+    padding: var(--space-8);
+    border-radius: var(--radius-base);
+    background: transparent;
+    border: none;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .sidebar-toggle:focus {
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+  
+  .sidebar-toggle:hover {
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+  }
+  
+  /* Navigation links - better touch targets */
+  .nav-link {
+    padding: var(--space-12) var(--space-16);
+    margin-bottom: 2px;
+  }
+  
+  /* Main content area adjustments */
+  .main-content {
+    padding: var(--space-12);
+    width: 100%;
+  }
+  
+  .chapter {
+    padding: var(--space-12);
+  }
+  
+  /* Chapter grid layouts become single column */
+  .chapter-grid,
+  .intro-grid,
+  .installation-grid,
+  .method-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-16);
+  }
+  
+  /* Make chapter headings more compact */
+  .chapter-header {
+    margin-bottom: var(--space-16);
+    padding-bottom: var(--space-16);
+  }
+  
+  /* Adjustments for code comparison layouts */
+  .code-comparison {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+  }
+  
+  .code-comparison > div {
+    width: 100%;
+  }
+  
+  /* Better touch targets for buttons */
+  .btn {
+    padding: var(--space-10) var(--space-16);
+    min-height: 44px; /* Minimum touch target size */
+  }
+  
+  /* Make images responsive */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Form elements improvements */
+  input, select, textarea {
+    font-size: 16px; /* Prevent auto-zoom on iOS */
+  }
+  
+  /* Search experience improvements */
+  .search-modal-content {
+    width: 90%;
+    max-width: 90%;
+    margin: 10% auto;
+  }
+  
+  .search-input {
+    font-size: 16px; /* Prevent auto-zoom on iOS */
+  }
+  
+  /* Fix for overflowing content */
+  .app-container {
+    overflow-x: hidden;
+  }
+  
+  /* Bottom navigation for mobile */
+  .chapter-navigation {
+    flex-direction: column;
+    gap: var(--space-12);
+  }
+  
+  .chapter-navigation .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  /* Add fixed bottom navigation for quick access */
+  .mobile-bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--color-surface);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    padding: var(--space-8) var(--space-12);
+    z-index: 90;
+    justify-content: space-around;
+  }
+  
+  .mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    padding: var(--space-6);
+  }
+  
+  .mobile-nav-item svg {
+    margin-bottom: var(--space-4);
+  }
+  
+  .mobile-nav-item.active {
+    color: var(--color-primary);
+  }
+}
+
+/* Adjustments for small phones */
+@media screen and (max-width: 375px) {
+  .header-title {
+    font-size: var(--font-size-lg);
+  }
+  
+  .chapter-header h1 {
+    font-size: var(--font-size-2xl);
+  }
+  
+  /* Even more compact padding */
+  .main-content, 
+  .chapter {
+    padding: var(--space-8);
+  }
+}
+
+/* Landscape mode optimizations */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+  .sidebar {
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+  
+  .mobile-bottom-nav {
+    padding: var(--space-4) var(--space-8);
+  }
+  
+  .mobile-nav-item {
+    font-size: var(--font-size-xs);
+  }
+}
+
+/* Medium sized tablets and landscape phones */
+@media screen and (min-width: 576px) and (max-width: 768px) {
+  .intro-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .chapter-header {
+    margin-bottom: var(--space-24);
+    padding-bottom: var(--space-24);
+  }
+}
+
+/* Tablet optimizations */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .sidebar {
+    width: 240px;
+  }
+  
+  .main-content {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+  }
+  
+  .sidebar-toggle {
+    display: none; /* Hide toggle on tablets where sidebar is always visible */
+  }
+  
+  /* Restore some grid layouts for tablets */
+  .intro-grid,
+  .installation-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .method-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .code-comparison {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

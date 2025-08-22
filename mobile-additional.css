@@ -1,0 +1,263 @@
+/* Additional mobile optimizations */
+
+/* Prevent body scroll when sidebar is open on mobile */
+body.sidebar-open {
+    overflow: hidden;
+}
+
+/* Add dark overlay when sidebar is open on mobile */
+body.sidebar-open::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 90;
+}
+
+/* Ensure content tables are responsive */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow-x: auto;
+    display: block;
+}
+
+/* Code comparison improvements for mobile */
+.comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-24);
+}
+
+.comparison-item {
+    width: 100%;
+    margin-bottom: var(--space-20);
+}
+
+/* Add space at the bottom for mobile bottom nav */
+@media screen and (max-width: 768px) {
+    .main-content {
+        padding-bottom: 80px; /* Space for mobile nav */
+    }
+    
+    /* Ensure code blocks don't overflow horizontally */
+    pre {
+        white-space: pre;
+        overflow-x: auto;
+        max-width: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Adjust blockquote styling for mobile */
+    blockquote {
+        margin-left: 0;
+        margin-right: 0;
+        padding: var(--space-12);
+    }
+    
+    /* Improved touch targets for interactive elements */
+    a, button, .checkbox-label, select, .nav-link {
+        min-height: 44px;
+        min-width: 44px;
+        padding: var(--space-8);
+        display: inline-flex;
+        align-items: center;
+    }
+    
+    /* Make chapter navigation more mobile-friendly */
+    .chapter-navigation {
+        flex-direction: column;
+        gap: var(--space-16);
+    }
+    
+    .chapter-navigation .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Ensure images don't overflow container */
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: var(--space-16) 0;
+    }
+    
+    /* Enhanced code examples for mobile readability */
+    .example-box {
+        padding: var(--space-12);
+        margin: var(--space-16) 0;
+        border-radius: var(--radius-sm);
+    }
+    
+    /* Enhance info boxes on mobile */
+    .info-box, .tip-box, .warning-box {
+        padding: var(--space-12);
+        margin: var(--space-16) 0;
+        border-radius: var(--radius-sm);
+    }
+}
+
+/* Mobile Bottom Navigation */
+.mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--color-surface);
+    display: flex;
+    justify-content: space-around;
+    padding: var(--space-8) var(--space-12);
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    display: none; /* Hidden by default, shown on mobile */
+}
+
+@media screen and (max-width: 768px) {
+    .mobile-bottom-nav {
+        display: flex;
+    }
+}
+
+.mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--color-text-secondary);
+    transition: color 0.2s;
+    text-decoration: none;
+    padding: var(--space-8);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+}
+
+.mobile-nav-item:hover,
+.mobile-nav-item:focus,
+.mobile-nav-item.active {
+    color: var(--color-primary);
+}
+
+.mobile-nav-item svg {
+    margin-bottom: var(--space-4);
+    width: 24px;
+    height: 24px;
+}
+
+/* Styling for active bottom nav items */
+.mobile-bottom-nav .mobile-nav-item.active {
+    color: var(--color-primary);
+}
+
+/* Hide mobile bottom nav on larger screens */
+@media screen and (min-width: 769px) {
+    .mobile-bottom-nav {
+        display: none;
+    }
+}
+
+/* Improve table responsiveness */
+@media screen and (max-width: 768px) {
+    table {
+        width: 100%;
+    }
+    
+    /* Make table scroll horizontally on small screens */
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Stack table on mobile for better readability when appropriate */
+    .table-stack-mobile tr {
+        display: block;
+        margin-bottom: var(--space-16);
+        border-bottom: 1px solid var(--color-border);
+    }
+    
+    .table-stack-mobile td {
+        display: block;
+        text-align: right;
+        padding: var(--space-8);
+    }
+    
+    .table-stack-mobile td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: var(--font-weight-semibold);
+        color: var(--color-text-secondary);
+    }
+}
+
+/* Improved form controls for mobile */
+@media screen and (max-width: 768px) {
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select,
+    textarea {
+        font-size: 16px; /* Prevent auto-zoom on iOS */
+        width: 100%;
+        padding: var(--space-12);
+    }
+    
+    /* Improve checkbox and radio touch targets */
+    input[type="checkbox"],
+    input[type="radio"] {
+        transform: scale(1.2);
+        margin-right: var(--space-8);
+    }
+    
+    /* Better labels for form controls */
+    label {
+        display: block;
+        margin-bottom: var(--space-8);
+        font-weight: var(--font-weight-medium);
+    }
+}
+
+/* Improved code snippet display on mobile */
+@media screen and (max-width: 768px) {
+    .code-toolbar {
+        position: relative;
+    }
+    
+    pre[class*="language-"] {
+        font-size: 14px;
+        padding: var(--space-12);
+    }
+    
+    .token.comment {
+        font-style: italic;
+        color: #6a9955;
+    }
+}
+
+/* Improve nav headers for better section recognition */
+@media screen and (max-width: 768px) {
+    .nav-section h3 {
+        font-size: 12px;
+        padding: var(--space-12) var(--space-12) var(--space-8);
+        margin: 0;
+        background-color: var(--color-secondary);
+        border-radius: var(--radius-base);
+    }
+}
+
+/* Better tap targets for links within content */
+@media screen and (max-width: 768px) {
+    .chapter-content a {
+        padding: 2px 0;
+        display: inline-block;
+    }
+    
+    .chapter-content li {
+        margin-bottom: var(--space-8);
+    }
+}

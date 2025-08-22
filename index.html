@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en" data-color-scheme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="theme-color" content="#21808d">
+    <title>Python Mastery Handbook - For JavaScript Developers</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="markdown-styles.css">
+    <link rel="stylesheet" href="mobile-styles.css">
+    <link rel="stylesheet" href="mobile-additional.css">
+    <link rel="stylesheet" href="mobile-search.css">
+    <link rel="stylesheet" href="mobile-interactive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.2/marked.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 12h18M3 6h18M3 18h18"/>
+                    </svg>
+                </button>
+                <h1 class="header-title">Python Mastery Handbook</h1>
+                <span class="header-subtitle">For JavaScript Developers</span>
+            </div>
+            <div class="header-right">
+                <button class="search-btn" id="searchBtn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.35-4.35"/>
+                    </svg>
+                </button>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Modal -->
+    <div class="search-modal hidden" id="searchModal">
+        <div class="search-modal-content">
+            <div class="search-input-container">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                </svg>
+                <input type="text" placeholder="Search chapters, topics, or code examples..." class="search-input" id="searchInput">
+                <button class="search-close" id="searchClose">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="search-results" id="searchResults"></div>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="progress-overview">
+                <h3>Your Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="overallProgress"></div>
+                </div>
+                <span class="progress-text" id="progressText">0% Complete</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <h3>Getting Started</h3>
+                    <ul>
+                        <li><a href="#welcome" class="nav-link active" data-chapter="welcome">Welcome</a></li>
+                        <li><a href="#setup" class="nav-link" data-chapter="setup">Setup & Installation</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Python Fundamentals</h3>
+                    <ul>
+                        <li><a href="#variables" class="nav-link" data-chapter="variables">Variables & Data Types</a></li>
+                        <li><a href="#strings" class="nav-link" data-chapter="strings">Strings</a></li>
+                        <li><a href="#lists" class="nav-link" data-chapter="lists">Lists & Tuples</a></li>
+                        <li><a href="#dictionaries" class="nav-link" data-chapter="dictionaries">Dictionaries & Sets</a></li>
+                        <li><a href="#conditionals" class="nav-link" data-chapter="conditionals">Conditionals</a></li>
+                        <li><a href="#loops" class="nav-link" data-chapter="loops">Loops</a></li>
+                        <li><a href="#functions" class="nav-link" data-chapter="functions">Functions</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Object-Oriented Programming</h3>
+                    <ul>
+                        <li><a href="#classes" class="nav-link" data-chapter="classes">Classes & Objects</a></li>
+                        <li><a href="#inheritance" class="nav-link" data-chapter="inheritance">Inheritance</a></li>
+                        <li><a href="#oop" class="nav-link" data-chapter="oop">Object-Oriented Programming</a></li>
+                        <li><a href="#advanced-oop" class="nav-link" data-chapter="advanced-oop">Advanced OOP</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Advanced Topics</h3>
+                    <ul>
+                        <li><a href="#type-hints" class="nav-link" data-chapter="type-hints">Type Hints</a></li>
+                        <li><a href="#dataclasses" class="nav-link" data-chapter="dataclasses">Dataclasses</a></li>
+                        <li><a href="#async" class="nav-link" data-chapter="async">Async Programming</a></li>
+                        <li><a href="#decorators" class="nav-link" data-chapter="decorators">Decorators</a></li>
+                        <li><a href="#higher-order-functions" class="nav-link" data-chapter="higher-order-functions">Higher-Order Functions</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Practical Projects</h3>
+                    <ul>
+                        <li><a href="#cli-project" class="nav-link" data-chapter="cli-project">CLI Tool Project</a></li>
+                        <li><a href="#web-api" class="nav-link" data-chapter="web-api">Web API Project</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <!-- Welcome Chapter -->
+            <section class="chapter active" id="welcome">
+                <div class="chapter-header">
+                    <h1>Welcome to Python Mastery Handbook</h1>
+                    <p class="chapter-subtitle">A comprehensive guide designed specifically for JavaScript developers</p>
+                </div>
+
+                <div class="chapter-content">
+                    <div class="intro-grid">
+                        <div class="intro-card">
+                            <div class="card-icon">🐍</div>
+                            <h3>Why Python?</h3>
+                            <p>Python's clean syntax and powerful ecosystem make it perfect for web development, data science, AI, and more.</p>
+                        </div>
+                        <div class="intro-card">
+                            <div class="card-icon">⚡</div>
+                            <h3>Fast Learning</h3>
+                            <p>Leverage your JavaScript knowledge to quickly master Python concepts and patterns.</p>
+                        </div>
+                        <div class="intro-card">
+                            <div class="card-icon">🚀</div>
+                            <h3>Hands-on Projects</h3>
+                            <p>Build real-world applications while learning core concepts and best practices.</p>
+                        </div>
+                    </div>
+
+                    <div class="comparison-section">
+                        <h2>Python vs JavaScript: Quick Overview</h2>
+                        <div class="comparison-grid">
+                            <div class="comparison-item">
+                                <h4>Syntax Style</h4>
+                                <div class="code-comparison table-responsive">
+                                    <div class="code-block">
+                                        <div class="code-header">
+                                            <span class="language-label python">Python</span>
+                                            <button class="copy-btn" data-code="# Clean and readable
+if user.is_active and user.age >= 18:
+    print('User can access content')
+    
+for item in shopping_cart:
+    total += item.price">Copy</button>
+                                        </div>
+                                        <pre><code class="language-python"># Clean and readable
+if user.is_active and user.age >= 18:
+    print('User can access content')
+    
+for item in shopping_cart:
+    total += item.price</code></pre>
+                                    </div>
+                                    <div class="code-block">
+                                        <div class="code-header">
+                                            <span class="language-label javascript">JavaScript</span>
+                                            <button class="copy-btn" data-code="// More verbose
+if (user.isActive && user.age >= 18) {
+  console.log('User can access content');
+}
+
+for (const item of shoppingCart) {
+  total += item.price;
+}">Copy</button>
+                                        </div>
+                                        <pre><code class="language-javascript">// More verbose
+if (user.isActive && user.age >= 18) {
+  console.log('User can access content');
+}
+
+for (const item of shoppingCart) {
+  total += item.price;
+}</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chapter-navigation">
+                        <button class="btn btn--primary next-chapter" data-next="setup">
+                            Get Started with Setup
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="chapter-footer">
+                    <label class="chapter-complete">
+                        <input type="checkbox" class="chapter-checkbox" data-chapter="welcome">
+                        <span>Mark as complete</span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Setup Chapter -->
+            <section class="chapter" id="setup">
+                <div class="chapter-header">
+                    <h1>Setup & Installation</h1>
+                    <p class="chapter-subtitle">Get your development environment ready</p>
+                </div>
+
+                <div class="chapter-content">
+                    <h2>Installing Python</h2>
+                    <p>Unlike Node.js for JavaScript, Python comes pre-installed on most systems. However, you'll want the latest version.</p>
+
+                    <div class="installation-grid">
+                        <div class="install-card">
+                            <h3>🪟 Windows</h3>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="language-label">Command</span>
+                                    <button class="copy-btn" data-code="# Download from python.org
+# or use winget
+winget install Python.Python.3.12">Copy</button>
+                                </div>
+                                <pre><code class="language-bash"># Download from python.org
+# or use winget
+winget install Python.Python.3.12</code></pre>
+                            </div>
+                        </div>
+                        <div class="install-card">
+                            <h3>🍎 macOS</h3>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="language-label">Command</span>
+                                    <button class="copy-btn" data-code="# Using Homebrew
+brew install python@3.12">Copy</button>
+                                </div>
+                                <pre><code class="language-bash"># Using Homebrew
+brew install python@3.12</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>Package Management: pip vs npm</h2>
+                    <div class="comparison-grid">
+                        <div class="comparison-item">
+                            <div class="code-comparison table-responsive">
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="language-label python">Python (pip)</span>
+                                        <button class="copy-btn" data-code="# Install packages
+pip install requests flask
+
+# Install from requirements.txt
+pip install -r requirements.txt
+
+# Create virtual environment
+python -m venv myenv
+source myenv/bin/activate  # Linux/Mac
+myenv\Scripts\activate     # Windows">Copy</button>
+                                    </div>
+                                    <pre><code class="language-bash"># Install packages
+pip install requests flask
+
+# Install from requirements.txt
+pip install -r requirements.txt
+
+# Create virtual environment
+python -m venv myenv
+source myenv/bin/activate  # Linux/Mac
+myenv\Scripts\activate     # Windows</code></pre>
+                                </div>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="language-label javascript">JavaScript (npm)</span>
+                                        <button class="copy-btn" data-code="// Install packages
+npm install axios express
+
+// Install from package.json
+npm install
+
+// No virtual environment needed">Copy</button>
+                                    </div>
+                                    <pre><code class="language-bash"># Install packages
+npm install axios express
+
+# Install from package.json
+npm install
+
+# No virtual environment needed</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chapter-navigation">
+                        <button class="btn btn--secondary prev-chapter" data-prev="welcome">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 12H5M12 19l-7-7 7-7"/>
+                            </svg>
+                            Previous: Welcome
+                        </button>
+                        <button class="btn btn--primary next-chapter" data-next="variables">
+                            Next: Variables & Data Types
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="chapter-footer">
+                    <label class="chapter-complete">
+                        <input type="checkbox" class="chapter-checkbox" data-chapter="setup">
+                        <span>Mark as complete</span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Variables Chapter -->
+            <section class="chapter" id="variables">
+                <div class="chapter-header">
+                    <h1>Variables & Data Types</h1>
+                    <p class="chapter-subtitle">Understanding Python's type system</p>
+                </div>
+
+                <div class="chapter-content">
+                    <h2>Variable Declaration</h2>
+                    <p>Unlike JavaScript, Python doesn't use <code>let</code>, <code>const</code>, or <code>var</code>. Variables are created simply by assignment.</p>
+
+                    <div class="code-comparison">
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="language-label python">Python</span>
+                                <button class="copy-btn" data-code="# Python data types
+name = 'John'      # str
+age = 25           # int
+height = 5.9       # float
+is_student = True  # bool
+data = None        # NoneType
+
+# Python is dynamically typed
+user_id = 123      # int
+user_id = 'abc123' # now str - this is fine">Copy</button>
+                            </div>
+                            <pre><code class="language-python"># Python data types
+name = 'John'      # str
+age = 25           # int
+height = 5.9       # float
+is_student = True  # bool
+data = None        # NoneType
+
+# Python is dynamically typed
+user_id = 123      # int
+user_id = 'abc123' # now str - this is fine</code></pre>
+                        </div>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="language-label javascript">JavaScript</span>
+                                <button class="copy-btn" data-code="// JavaScript
+let name = 'John';         // string
+let age = 25;              // number
+let height = 5.9;          // number
+let isStudent = true;      // boolean
+let data = null;           // object
+
+// JavaScript is also dynamically typed
+let userId = 123;          // number
+userId = 'abc123';         // now string - this is fine">Copy</button>
+                            </div>
+                            <pre><code class="language-javascript">// JavaScript
+let name = 'John';         // string
+let age = 25;              // number
+let height = 5.9;          // number
+let isStudent = true;      // boolean
+let data = null;           // object
+
+// JavaScript is also dynamically typed
+let userId = 123;          // number
+userId = 'abc123';         // now string - this is fine</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>Key Differences for JS Developers</h4>
+                        <ul>
+                            <li><strong>No undefined:</strong> Python uses <code>None</code> instead of <code>null</code> or <code>undefined</code></li>
+                            <li><strong>Integer vs Float:</strong> Python distinguishes between <code>int</code> and <code>float</code>, while JS only has <code>number</code></li>
+                            <li><strong>Boolean values:</strong> Python uses <code>True</code>/<code>False</code> (capitalized) vs JS <code>true</code>/<code>false</code></li>
+                            <li><strong>String quotes:</strong> Python treats single and double quotes equally</li>
+                        </ul>
+                    </div>
+
+                    <h2>Type Checking</h2>
+                    <div class="code-comparison">
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="language-label python">Python</span>
+                                <button class="copy-btn" data-code="# Check types in Python
+name = 'John'
+print(type(name))        # <class 'str'>
+print(isinstance(name, str))  # True
+
+# Convert types
+age = '25'
+age_int = int(age)       # Convert string to int
+print(type(age_int))     # <class 'int'>">Copy</button>
+                            </div>
+                            <pre><code class="language-python"># Check types in Python
+name = 'John'
+print(type(name))        # <class 'str'>
+print(isinstance(name, str))  # True
+
+# Convert types
+age = '25'
+age_int = int(age)       # Convert string to int
+print(type(age_int))     # <class 'int'></code></pre>
+                        </div>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="language-label javascript">JavaScript</span>
+                                <button class="copy-btn" data-code="// Check types in JavaScript
+const name = 'John';
+console.log(typeof name);     // 'string'
+
+// Convert types
+const age = '25';
+const ageInt = parseInt(age); // Convert string to number
+console.log(typeof ageInt);   // 'number'">Copy</button>
+                            </div>
+                            <pre><code class="language-javascript">// Check types in JavaScript
+const name = 'John';
+console.log(typeof name);     // 'string'
+
+// Convert types
+const age = '25';
+const ageInt = parseInt(age); // Convert string to number
+console.log(typeof ageInt);   // 'number'</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="chapter-navigation">
+                        <button class="btn btn--secondary prev-chapter" data-prev="setup">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 12H5M12 19l-7-7 7-7"/>
+                            </svg>
+                            Previous: Setup
+                        </button>
+                        <button class="btn btn--primary next-chapter" data-next="strings">
+                            Next: Strings
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="chapter-footer">
+                    <label class="chapter-complete">
+                        <input type="checkbox" class="chapter-checkbox" data-chapter="variables">
+                        <span>Mark as complete</span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Type Hints Chapter -->
+            <section class="chapter" id="type-hints">
+                <div class="chapter-header">
+                    <h1>Type Hints</h1>
+                    <p class="chapter-subtitle">Python's answer to TypeScript</p>
+                </div>
+
+                <div class="chapter-content">
+                    <h2>Introduction to Type Hints</h2>
+                    <p>Python 3.5+ supports optional type hints, similar to TypeScript for JavaScript. This helps with code documentation, IDE support, and catching errors early.</p>
+
+                    <div class="code-comparison">
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="language-label python">Python Type Hints</span>
+                                <button class="copy-btn" data-code="from typing import List, Dict, Optional, Union
+
+def greet(name: str) -> str:
+    return f'Hello, {name}!'
+
+def process_users(users: List[Dict[str, str]]) -> Optional[str]:
+    if not users:
+        return None
+    return users[0]['name']
+
+# Union types (like TypeScript union)
+def parse_input(value: Union[str, int]) -> str:
+    return str(value)
+
+# Optional is shorthand for Union[Type, None]
+def get_user(user_id: int) -> Optional[Dict[str, str]]:
+    # Return user or None if not found
+    pass">Copy</button>
+                            </div>
+                            <pre><code class="language-python">from typing import List, Dict, Optional, Union
+
+def greet(name: str) -> str:
+    return f'Hello, {name}!'
+
+def process_users(users: List[Dict[str, str]]) -> Optional[str]:
+    if not users:
+        return None
+    return users[0]['name']
+
+# Union types (like TypeScript union)
+def parse_input(value: Union[str, int]) -> str:
+    return str(value)
+
+# Optional is shorthand for Union[Type, None]
+def get_user(user_id: int) -> Optional[Dict[str, str]]:
+    # Return user or None if not found
+    pass</code></pre>
+                        </div>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="language-label javascript">TypeScript</span>
+                                <button class="copy-btn" data-code="interface User {
+  name: string;
+}
+
+function greet(name: string): string {
+  return `Hello, ${name}!`;
+}
+
+function processUsers(users: User[]): string | null {
+  if (users.length === 0) {
+    return null;
+  }
+  return users[0].name;
+}
+
+// Union types
+function parseInput(value: string | number): string {
+  return String(value);
+}
+
+// Optional parameter
+function getUser(userId: number): User | null {
+  // Return user or null if not found
+}">Copy</button>
+                            </div>
+                            <pre><code class="language-typescript">interface User {
+  name: string;
+}
+
+function greet(name: string): string {
+  return `Hello, ${name}!`;
+}
+
+function processUsers(users: User[]): string | null {
+  if (users.length === 0) {
+    return null;
+  }
+  return users[0].name;
+}
+
+// Union types
+function parseInput(value: string | number): string {
+  return String(value);
+}
+
+// Optional parameter
+function getUser(userId: number): User | null {
+  // Return user or null if not found
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <h2>Modern Python 3.9+ Syntax</h2>
+                    <p>Python 3.9+ introduced cleaner syntax for type hints, similar to how modern JavaScript evolved.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="language-label python">Python 3.9+</span>
+                            <button class="copy-btn" data-code="# Modern Python type hints (3.9+)
+def process_data(items: list[dict[str, str]]) -> str | None:
+    if not items:
+        return None
+    return items[0]['name']
+
+# Generic types
+from typing import TypeVar, Generic
+
+T = TypeVar('T')
+
+class Container(Generic[T]):
+    def __init__(self, item: T) -> None:
+        self.item = item
+    
+    def get(self) -> T:
+        return self.item
+
+# Usage
+string_container: Container[str] = Container('hello')
+number_container: Container[int] = Container(42)">Copy</button>
+                        </div>
+                        <pre><code class="language-python"># Modern Python type hints (3.9+)
+def process_data(items: list[dict[str, str]]) -> str | None:
+    if not items:
+        return None
+    return items[0]['name']
+
+# Generic types
+from typing import TypeVar, Generic
+
+T = TypeVar('T')
+
+class Container(Generic[T]):
+    def __init__(self, item: T) -> None:
+        self.item = item
+    
+    def get(self) -> T:
+        return self.item
+
+# Usage
+string_container: Container[str] = Container('hello')
+number_container: Container[int] = Container(42)</code></pre>
+                    </div>
+
+                    <div class="chapter-navigation">
+                        <button class="btn btn--secondary prev-chapter" data-prev="classes">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 12H5M12 19l-7-7 7-7"/>
+                            </svg>
+                            Previous: Classes
+                        </button>
+                        <button class="btn btn--primary next-chapter" data-next="dataclasses">
+                            Next: Dataclasses
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="chapter-footer">
+                    <label class="chapter-complete">
+                        <input type="checkbox" class="chapter-checkbox" data-chapter="type-hints">
+                        <span>Mark as complete</span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- CLI Project Chapter -->
+            <section class="chapter" id="cli-project">
+                <div class="chapter-header">
+                    <h1>Project: CLI Tool Development</h1>
+                    <p class="chapter-subtitle">Build a command-line application with Click</p>
+                </div>
+
+                <div class="chapter-content">
+                    <h2>Building a CLI Tool</h2>
+                    <p>Let's create a practical command-line tool using Python's Click library. This is similar to building CLI tools with Commander.js in Node.js.</p>
+
+                    <div class="code-comparison">
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="language-label python">Python with Click</span>
+                                <button class="copy-btn" data-code="import click
+import requests
+from datetime import datetime
+
+@click.group()
+def cli():
+    '''A simple weather CLI tool'''
+    pass
+
+@cli.command()
+@click.option('--city', prompt='City name', help='The city to get weather for')
+@click.option('--units', default='metric', help='Temperature units (metric/imperial)')
+def weather(city, units):
+    '''Get current weather for a city'''
+    # Mock API call (replace with real API)
+    click.echo(f'Getting weather for {city}...')
+    
+    # Simulate API response
+    temp = 22 if units == 'metric' else 72
+    unit_symbol = '°C' if units == 'metric' else '°F'
+    
+    click.echo(f'🌤️  Current weather in {city}:')
+    click.echo(f'   Temperature: {temp}{unit_symbol}')
+    click.echo(f'   Last updated: {datetime.now().strftime(\"%Y-%m-%d %H:%M\")}')
+
+@cli.command()
+@click.argument('filename')
+def analyze(filename):
+    '''Analyze a text file'''
+    try:
+        with open(filename, 'r') as f:
+            content = f.read()
+            words = len(content.split())
+            lines = len(content.splitlines())
+            chars = len(content)
+            
+        click.echo(f'📄 File analysis for {filename}:')
+        click.echo(f'   Lines: {lines}')
+        click.echo(f'   Words: {words}')
+        click.echo(f'   Characters: {chars}')
+        
+    except FileNotFoundError:
+        click.echo(f'❌ Error: File {filename} not found', err=True)
+
+if __name__ == '__main__':
+    cli()">Copy</button>
+                            </div>
+                            <pre><code class="language-python">import click
+import requests
+from datetime import datetime
+
+@click.group()
+def cli():
+    '''A simple weather CLI tool'''
+    pass
+
+@cli.command()
+@click.option('--city', prompt='City name', help='The city to get weather for')
+@click.option('--units', default='metric', help='Temperature units (metric/imperial)')
+def weather(city, units):
+    '''Get current weather for a city'''
+    # Mock API call (replace with real API)
+    click.echo(f'Getting weather for {city}...')
+    
+    # Simulate API response
+    temp = 22 if units == 'metric' else 72
+    unit_symbol = '°C' if units == 'metric' else '°F'
+    
+    click.echo(f'🌤️  Current weather in {city}:')
+    click.echo(f'   Temperature: {temp}{unit_symbol}')
+    click.echo(f'   Last updated: {datetime.now().strftime("%Y-%m-%d %H:%M")}')
+
+@cli.command()
+@click.argument('filename')
+def analyze(filename):
+    '''Analyze a text file'''
+    try:
+        with open(filename, 'r') as f:
+            content = f.read()
+            words = len(content.split())
+            lines = len(content.splitlines())
+            chars = len(content)
+            
+        click.echo(f'📄 File analysis for {filename}:')
+        click.echo(f'   Lines: {lines}')
+        click.echo(f'   Words: {words}')
+        click.echo(f'   Characters: {chars}')
+        
+    except FileNotFoundError:
+        click.echo(f'❌ Error: File {filename} not found', err=True)
+
+if __name__ == '__main__':
+    cli()</code></pre>
+                        </div>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="language-label javascript">Node.js with Commander</span>
+                                <button class="copy-btn" data-code="const { program } = require('commander');
+const fs = require('fs').promises;
+
+program
+  .name('weather-cli')
+  .description('A simple weather CLI tool')
+  .version('1.0.0');
+
+program
+  .command('weather')
+  .description('Get current weather for a city')
+  .option('-c, --city <city>', 'city name')
+  .option('-u, --units <units>', 'temperature units', 'metric')
+  .action(async (options) => {
+    const city = options.city || 'London';
+    console.log(`Getting weather for ${city}...`);
+    
+    // Simulate API response
+    const temp = options.units === 'metric' ? 22 : 72;
+    const unitSymbol = options.units === 'metric' ? '°C' : '°F';
+    
+    console.log(`🌤️  Current weather in ${city}:`);
+    console.log(`   Temperature: ${temp}${unitSymbol}`);
+    console.log(`   Last updated: ${new Date().toISOString()}`);
+  });
+
+program
+  .command('analyze')
+  .description('Analyze a text file')
+  .argument('<filename>', 'file to analyze')
+  .action(async (filename) => {
+    try {
+      const content = await fs.readFile(filename, 'utf8');
+      const words = content.split(/\s+/).length;
+      const lines = content.split('\n').length;
+      const chars = content.length;
+      
+      console.log(`📄 File analysis for ${filename}:`);
+      console.log(`   Lines: ${lines}`);
+      console.log(`   Words: ${words}`);
+      console.log(`   Characters: ${chars}`);
+      
+    } catch (error) {
+      console.error(`❌ Error: File ${filename} not found`);
+    }
+  });
+
+program.parse();">Copy</button>
+                            </div>
+                            <pre><code class="language-javascript">const { program } = require('commander');
+const fs = require('fs').promises;
+
+program
+  .name('weather-cli')
+  .description('A simple weather CLI tool')
+  .version('1.0.0');
+
+program
+  .command('weather')
+  .description('Get current weather for a city')
+  .option('-c, --city <city>', 'city name')
+  .option('-u, --units <units>', 'temperature units', 'metric')
+  .action(async (options) => {
+    const city = options.city || 'London';
+    console.log(`Getting weather for ${city}...`);
+    
+    // Simulate API response
+    const temp = options.units === 'metric' ? 22 : 72;
+    const unitSymbol = options.units === 'metric' ? '°C' : '°F';
+    
+    console.log(`🌤️  Current weather in ${city}:`);
+    console.log(`   Temperature: ${temp}${unitSymbol}`);
+    console.log(`   Last updated: ${new Date().toISOString()}`);
+  });
+
+program
+  .command('analyze')
+  .description('Analyze a text file')
+  .argument('<filename>', 'file to analyze')
+  .action(async (filename) => {
+    try {
+      const content = await fs.readFile(filename, 'utf8');
+      const words = content.split(/\s+/).length;
+      const lines = content.split('\n').length;
+      const chars = content.length;
+      
+      console.log(`📄 File analysis for ${filename}:`);
+      console.log(`   Lines: ${lines}`);
+      console.log(`   Words: ${words}`);
+      console.log(`   Characters: ${chars}`);
+      
+    } catch (error) {
+      console.error(`❌ Error: File ${filename} not found`);
+    }
+  });
+
+program.parse();</code></pre>
+                        </div>
+                    </div>
+
+                    <h2>Running the CLI Tool</h2>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="language-label">Terminal</span>
+                            <button class="copy-btn" data-code="# Install dependencies
+pip install click requests
+
+# Run the CLI tool
+python weather_cli.py weather --city 'New York' --units imperial
+python weather_cli.py analyze sample.txt
+
+# Get help
+python weather_cli.py --help
+python weather_cli.py weather --help">Copy</button>
+                        </div>
+                        <pre><code class="language-bash"># Install dependencies
+pip install click requests
+
+# Run the CLI tool
+python weather_cli.py weather --city 'New York' --units imperial
+python weather_cli.py analyze sample.txt
+
+# Get help
+python weather_cli.py --help
+python weather_cli.py weather --help</code></pre>
+                    </div>
+
+                    <div class="project-exercise">
+                        <h3>💡 Exercise: Extend the CLI Tool</h3>
+                        <p>Try adding these features to practice:</p>
+                        <ul>
+                            <li>Add a <code>history</code> command that stores previous weather queries</li>
+                            <li>Add color output using Click's styling features</li>
+                            <li>Add configuration file support for default cities</li>
+                            <li>Add input validation for city names</li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter-navigation">
+                        <button class="btn btn--secondary prev-chapter" data-prev="decorators">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 12H5M12 19l-7-7 7-7"/>
+                            </svg>
+                            Previous: Decorators
+                        </button>
+                        <button class="btn btn--primary next-chapter" data-next="web-api">
+                            Next: Web API Project
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="chapter-footer">
+                    <label class="chapter-complete">
+                        <input type="checkbox" class="chapter-checkbox" data-chapter="cli-project">
+                        <span>Mark as complete</span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Higher-Order Functions Chapter -->
+            <section class="chapter" id="higher-order-functions">
+                <div class="chapter-header">
+                    <h1>Higher-Order Functions and Functional Programming</h1>
+                    <p class="chapter-subtitle">Mastering advanced function concepts in Python</p>
+                </div>
+
+                <div class="chapter-content">
+                    <!-- Content will be loaded dynamically from markdown -->
+                    
+                    <div class="chapter-navigation">
+                        <button class="btn btn--secondary prev-chapter" data-prev="decorators">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 12H5M12 19l-7-7 7-7"/>
+                            </svg>
+                            Previous: Decorators
+                        </button>
+                        <button class="btn btn--primary next-chapter" data-next="advanced-oop">
+                            Next: Advanced OOP
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="chapter-footer">
+                    <label class="chapter-complete">
+                        <input type="checkbox" class="chapter-checkbox" data-chapter="higher-order-functions">
+                        <span>Mark as complete</span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Advanced OOP Chapter -->
+            <section class="chapter" id="advanced-oop">
+                <div class="chapter-header">
+                    <h1>Object-Oriented Programming in Python</h1>
+                    <p class="chapter-subtitle">Advanced concepts, design patterns, and real-world applications</p>
+                </div>
+
+                <div class="chapter-content">
+                    <!-- Content will be loaded dynamically from markdown -->
+                    
+                    <div class="chapter-navigation">
+                        <button class="btn btn--secondary prev-chapter" data-prev="higher-order-functions">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 12H5M12 19l-7-7 7-7"/>
+                            </svg>
+                            Previous: Higher-Order Functions
+                        </button>
+                    </div>
+                </div>
+
+                <div class="chapter-footer">
+                    <label class="chapter-complete">
+                        <input type="checkbox" class="chapter-checkbox" data-chapter="advanced-oop">
+                        <span>Mark as complete</span>
+                    </label>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="mobile-scroll-helper.js"></script>
+</body>
+</html>

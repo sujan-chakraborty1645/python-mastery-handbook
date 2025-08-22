@@ -1,0 +1,64 @@
+/* Enhanced form elements and interactive components for mobile */
+@media screen and (max-width: 768px) {
+    /* Form element improvements for touch */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea,
+    select {
+        font-size: 16px; /* Prevents iOS zoom on focus */
+        padding: var(--space-12);
+        margin-bottom: var(--space-16);
+        border-radius: var(--radius-sm);
+    }
+    
+    /* Better button styles for mobile */
+    button, .btn {
+        padding: var(--space-12) var(--space-16);
+        min-height: 48px;
+        font-size: var(--font-size-md);
+    }
+    
+    /* Checkbox and radio improvements */
+    input[type="checkbox"],
+    input[type="radio"] {
+        width: 24px;
+        height: 24px;
+    }
+    
+    /* Improved dropdown select elements */
+    select {
+        background-size: 12px;
+        padding-right: 36px; /* Space for dropdown arrow */
+    }
+    
+    /* Enhance code tabs for mobile */
+    .code-tabs {
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: var(--space-4);
+    }
+    
+    .tab-button {
+        padding: var(--space-8) var(--space-12);
+        font-size: var(--font-size-sm);
+    }
+}
+
+/* Interactive element states for touch devices */
+@media (hover: none) {
+    /* Active states for touch devices */
+    .btn:active, 
+    .nav-link:active,
+    .sidebar-toggle:active {
+        opacity: 0.8;
+        transform: scale(0.98);
+    }
+}
+
+/* Ensure proper zoom behavior for mobile */
+@viewport {
+    width: device-width;
+    zoom: 1.0;
+}
