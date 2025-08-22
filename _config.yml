@@ -1,0 +1,20 @@
+# Jekyll configuration
+title: Python Mastery Handbook
+description: For JavaScript Developers
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Content processing
+defaults:
+  -
+    scope:
+      path: "chapters"
+      type: "pages"
+    values:
+      render_with_liquid: false
+      layout: "default"

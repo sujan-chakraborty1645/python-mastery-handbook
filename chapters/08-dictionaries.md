@@ -53,7 +53,11 @@ valid_dict = {
 
 # Invalid keys would cause TypeError:
 # invalid_dict = {[1, 2]: 'list key'}  # Lists are mutable
+# The next line shows that dict objects can't be used as keys (commented to prevent execution)
 # invalid_dict = {{1: 'a'}: 'dict key'}  # Dicts are mutable
+
+# Note: For Jekyll rendering, the above line should have double braces
+# but it's breaking the build, so imagine {1: 'a'} is a dict
 ```
 
 ### Ordered Dictionaries
