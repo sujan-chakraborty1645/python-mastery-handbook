@@ -20,9 +20,11 @@ class PythonHandbook {
         // Chapter configuration
         this.chapters = [
             'welcome', 'setup', 'variables', 'type-hints', 'cli-project', 
-            'strings', 'lists', 'dictionaries', 'conditionals', 'loops',
-            'functions', 'classes', 'inheritance', 'dataclasses', 
-            'async', 'decorators', 'web-api', 'higher-order-functions', 'oop', 'advanced-oop'
+            'strings', 'lists', 'fundamentals', 'dictionaries', 'conditionals', 'loops',
+            'functions', 'generators', 'classes', 'inheritance', 'dataclasses', 
+            'async', 'decorators', 'web-api', 'higher-order-functions', 'oop', 'advanced-oop',
+            'working-with-data', 'error-handling', 'modules-packages', 'context-managers', 'fastapi', 'cli-automation',
+            'data-scientific-python', 'modern-python-practices'
         ];
         
         // Map chapter IDs to markdown filenames
@@ -34,6 +36,8 @@ class PythonHandbook {
             'cli-project': '05-cli-project',
             'strings': '06-strings',
             'lists': '07-lists',
+            'fundamentals': '07b-python-fundamentals',
+            'generators': '11b-python-generators',
             'dictionaries': '08-dictionaries',
             'conditionals': '09-conditionals',
             'loops': '10-loops',
@@ -46,7 +50,15 @@ class PythonHandbook {
             'web-api': '17-web-api',
             'higher-order-functions': '20-higher-order-functions',
             'oop': '21-object-oriented-programming',
-            'advanced-oop': '22-advanced-oop'
+            'advanced-oop': '22-advanced-oop',
+            'working-with-data': '23-working-with-data',
+            'error-handling': '24-error-handling',
+            'modules-packages': '25-modules-packages',
+            'context-managers': '26-context-managers',
+            'fastapi': '27-fastapi',
+            'cli-automation': '28-cli-automation',
+            'data-scientific-python': '29-data-scientific-python',
+            'modern-python-practices': '30-modern-python-practices'
         };
         
         // Initialize the application
@@ -132,7 +144,8 @@ class PythonHandbook {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const chapter = link.dataset.chapter;
-                this.navigateToChapter(chapter);
+                const sectionId = link.getAttribute('href');
+                this.navigateToChapter(chapter, sectionId);
             });
         });
         
@@ -184,13 +197,55 @@ class PythonHandbook {
     /**
      * Navigate to a specific chapter
      */
-    navigateToChapter(chapterId) {
-        if (!chapterId || chapterId === this.currentChapter) return;
+    navigateToChapter(chapterId, sectionId = null) {
+        if (!chapterId) return;
         
-        this.currentChapter = chapterId;
-        this.loadAndShowChapter(chapterId);
-        this.updateActiveNavLink(chapterId);
-        this.scrollToTop();
+        const sameChapter = chapterId === this.currentChapter;
+        
+        if (!sameChapter) {
+            this.currentChapter = chapterId;
+            this.loadAndShowChapter(chapterId);
+            this.updateActiveNavLink(chapterId);
+            
+            // If we're navigating to a specific section, wait for content to load
+            if (sectionId) {
+                setTimeout(() => this.scrollToSection(sectionId), 300);
+            } else {
+                this.scrollToTop();
+            }
+        } else if (sectionId) {
+            // If already on the same chapter, just scroll to the section
+            this.scrollToSection(sectionId);
+        }
+    }
+    
+    /**
+     * Scroll to a specific section within the current chapter
+     */
+    scrollToSection(sectionId) {
+        if (!sectionId) return;
+        
+        const sectionElement = document.querySelector(sectionId);
+        if (sectionElement) {
+            sectionElement.scrollIntoView({ behavior: 'smooth' });
+            this.updateActiveSectionLink(sectionId);
+        }
+    }
+    
+    /**
+     * Update the active section link in the sidebar
+     */
+    updateActiveSectionLink(sectionId) {
+        // Remove active class from all section links
+        document.querySelectorAll('.nav-link[href^="#fastapi-"]').forEach(link => {
+            link.classList.remove('section-active');
+        });
+        
+        // Add active class to current section link
+        const activeSectionLink = document.querySelector(`a[href="${sectionId}"]`);
+        if (activeSectionLink) {
+            activeSectionLink.classList.add('section-active');
+        }
     }
 
     /**
@@ -431,6 +486,45 @@ class PythonHandbook {
     convertMarkdownToHtml(markdown) {
         // Configure marked.js renderer
         const renderer = new marked.Renderer();
+        
+        // Store original heading renderer
+        const originalHeadingRenderer = renderer.heading;
+        
+        // Override heading renderer to add IDs for FastAPI sections
+        renderer.heading = (text, level) => {
+            let id = '';
+            
+            // Generate IDs for FastAPI chapter sections
+            if (this.currentChapter === 'fastapi') {
+                if (text.includes('Introduction to FastAPI') && level <= 2) {
+                    id = ' id="fastapi"';
+                } else if (text.includes('Setting Up FastAPI') && level <= 2) {
+                    id = ' id="fastapi-setup"';
+                } else if (text.includes('Request Validation with Pydantic') && level <= 2) {
+                    id = ' id="fastapi-pydantic"';
+                } else if (text.includes('Path Parameters and Query Parameters') && level <= 2) {
+                    id = ' id="fastapi-parameters"';
+                } else if (text.includes('Response Models') && level <= 2) {
+                    id = ' id="fastapi-responses"';
+                } else if (text.includes('Form Data and File Uploads') && level <= 2) {
+                    id = ' id="fastapi-forms"';
+                } else if (text.includes('HTTP Status Codes and Error Handling') && level <= 2) {
+                    id = ' id="fastapi-errors"';
+                } else if (text.includes('Dependency Injection') && level <= 2) {
+                    id = ' id="fastapi-dependency"';
+                } else if (text.includes('Security and Authentication') && level <= 2) {
+                    id = ' id="fastapi-security"';
+                } else if (text.includes('Middleware') && level <= 2) {
+                    id = ' id="fastapi-middleware"';
+                } else if (text.includes('Background Tasks') && level <= 2) {
+                    id = ' id="fastapi-tasks"';
+                } else if (text.includes('Project: URL Shortener API') && level <= 2) {
+                    id = ' id="fastapi-project"';
+                }
+            }
+            
+            return `<h${level}${id}>${text}</h${level}>`;
+        };
         
         // Customize code blocks to add language label and copy button
         renderer.code = (code, language) => {
@@ -728,7 +822,9 @@ class PythonHandbook {
         const sidebarToggle = document.getElementById('sidebarToggle');
         const sidebar = document.getElementById('sidebar');
         
-        sidebarToggle?.addEventListener('click', () => {
+        sidebarToggle?.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             sidebar.classList.toggle('open');
             document.body.classList.toggle('sidebar-open');
         });
@@ -770,23 +866,6 @@ class PythonHandbook {
         
         const bottomNav = document.createElement('nav');
         bottomNav.className = 'mobile-bottom-nav';
-        
-        // Menu button
-        const menuButton = document.createElement('a');
-        menuButton.className = 'mobile-nav-item';
-        menuButton.href = '#';
-        menuButton.innerHTML = `
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 12h18M3 6h18M3 18h18"/>
-            </svg>
-            <span>Menu</span>
-        `;
-        menuButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('open');
-            document.body.classList.toggle('sidebar-open');
-        });
         
         // Home button
         const homeButton = document.createElement('a');
@@ -834,28 +913,10 @@ class PythonHandbook {
             this.navigateToNextChapter();
         });
         
-        // Search button
-        const searchButton = document.createElement('a');
-        searchButton.className = 'mobile-nav-item';
-        searchButton.href = '#';
-        searchButton.innerHTML = `
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="11" cy="11" r="8"/>
-                <path d="m21 21-4.35-4.35"/>
-            </svg>
-            <span>Search</span>
-        `;
-        searchButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            document.getElementById('searchBtn').click();
-        });
-        
         // Add all buttons to navigation
-        bottomNav.appendChild(menuButton);
         bottomNav.appendChild(homeButton);
         bottomNav.appendChild(prevButton);
         bottomNav.appendChild(nextButton);
-        bottomNav.appendChild(searchButton);
         
         // Add navigation to body
         document.body.appendChild(bottomNav);
@@ -873,6 +934,51 @@ class PythonHandbook {
                 this.toggleChapterCompletion(chapterId, isCompleted);
             }
         });
+        
+        // Add scroll listener for FastAPI section navigation
+        document.querySelector('.main-content').addEventListener('scroll', () => {
+            if (this.currentChapter === 'fastapi') {
+                this.updateSectionHighlightOnScroll();
+            }
+        });
+    }
+    
+    /**
+     * Update active section highlight based on scroll position
+     */
+    updateSectionHighlightOnScroll() {
+        // Only proceed if we're in the FastAPI chapter
+        if (this.currentChapter !== 'fastapi') return;
+        
+        const sections = [
+            { id: '#fastapi', element: document.getElementById('fastapi') },
+            { id: '#fastapi-setup', element: document.getElementById('fastapi-setup') },
+            { id: '#fastapi-pydantic', element: document.getElementById('fastapi-pydantic') },
+            { id: '#fastapi-parameters', element: document.getElementById('fastapi-parameters') },
+            { id: '#fastapi-responses', element: document.getElementById('fastapi-responses') },
+            { id: '#fastapi-forms', element: document.getElementById('fastapi-forms') },
+            { id: '#fastapi-errors', element: document.getElementById('fastapi-errors') },
+            { id: '#fastapi-dependency', element: document.getElementById('fastapi-dependency') },
+            { id: '#fastapi-security', element: document.getElementById('fastapi-security') },
+            { id: '#fastapi-middleware', element: document.getElementById('fastapi-middleware') },
+            { id: '#fastapi-tasks', element: document.getElementById('fastapi-tasks') },
+            { id: '#fastapi-project', element: document.getElementById('fastapi-project') }
+        ].filter(section => section.element !== null); // Filter out sections that don't exist
+        
+        if (sections.length === 0) return;
+        
+        // Find the section currently in view
+        const scrollPosition = document.querySelector('.main-content').scrollTop;
+        let currentSection = sections[0].id;
+        
+        for (let i = 0; i < sections.length; i++) {
+            const section = sections[i];
+            if (section.element.offsetTop <= scrollPosition + 100) {
+                currentSection = section.id;
+            }
+        }
+        
+        this.updateActiveSectionLink(currentSection);
     }
 
     /**

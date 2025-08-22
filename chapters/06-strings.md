@@ -28,6 +28,43 @@ for multiline text"""
 # Raw strings ignore escape characters
 file_path = r"C:\Users\name\Documents"  # Backslashes are preserved
 
+# Bytes literals for binary data (Python 3+)
+binary_data = b"Binary data with bytes"
+
+# Unicode strings (in Python 3, all strings are Unicode by default)
+unicode_text = "こんにちは"  # Japanese "Hello"
+```
+
+### String Immutability
+
+Like JavaScript, Python strings are immutable, meaning you cannot change a string after it's created:
+
+```python
+greeting = "Hello"
+greeting[0] = "J"  # Error: 'str' object does not support item assignment
+
+# Instead, create a new string
+new_greeting = "J" + greeting[1:]  # "Jello"
+```
+
+### String Concatenation and Repetition
+
+Python offers multiple ways to combine strings:
+
+```python
+# Concatenation with + (similar to JavaScript)
+first_name = "John"
+last_name = "Doe"
+full_name = first_name + " " + last_name  # "John Doe"
+
+# String repetition with * (no direct JavaScript equivalent)
+separator = "-" * 10  # "----------"
+padding = " " * 4 + "indented text"  # "    indented text"
+
+# Implicit concatenation of string literals (no + needed)
+message = "This string " "is actually " "concatenated"  # "This string is actually concatenated"
+```
+
 # f-strings for string interpolation (similar to JS template literals)
 greeting = f"Hello, {name}!"
 age = 30

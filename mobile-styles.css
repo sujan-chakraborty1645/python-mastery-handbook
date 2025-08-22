@@ -78,6 +78,11 @@
   .header-subtitle {
     display: none; /* Hide subtitle on very small screens */
   }
+  
+  /* Hide search button on mobile */
+  .search-btn {
+    display: none;
+  }
 
   /* Sidebar optimizations for mobile */
   .sidebar {
@@ -91,6 +96,15 @@
 
   body.sidebar-open .sidebar {
     left: 0;
+    height: 100%;
+  }
+  
+  /* Improve sidebar toggle tap area */
+  .sidebar-toggle {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 10px;
+    margin-right: 8px;
   }
 
   /* Adjust search bar for mobile */

@@ -49,52 +49,86 @@ Understanding the core concepts of asyncio:
 import asyncio
 import time
 
-# Coroutines run concurrently, not in parallel
+# Define coroutines (async functions) that simulate I/O-bound tasks
+# Coroutines run concurrently (not in parallel) - they take turns executing
 async def task1():
+    """
+    A coroutine that simulates a task taking 2 seconds
+    
+    When this function reaches the await statement, it "pauses" and gives up
+    control back to the event loop, allowing other coroutines to run during
+    this waiting period.
+    """
     print("Task 1 started")
-    await asyncio.sleep(2)
+    # await suspends execution of the coroutine and yields control back to the event loop
+    # asyncio.sleep simulates an I/O operation (like waiting for a network response)
+    await asyncio.sleep(2)  # Non-blocking sleep - other tasks can run during this time
     print("Task 1 completed")
-    return "Result 1"
+    return "Result 1"  # The return value will be wrapped in a completed Future
 
 async def task2():
+    """
+    A coroutine that simulates a task taking 1 second
+    
+    This will finish faster than task1 when run concurrently.
+    """
     print("Task 2 started")
-    await asyncio.sleep(1)
+    await asyncio.sleep(1)  # Non-blocking sleep
     print("Task 2 completed")
     return "Result 2"
 
+# The main coroutine that orchestrates our application
 async def main():
     start = time.time()
     
-    # Sequential execution
-    result1 = await task1()
-    result2 = await task2()
-    print(f"Sequential results: {result1}, {result2}")
-    print(f"Sequential time: {time.time() - start:.2f} seconds")
+    # PART 1: SEQUENTIAL EXECUTION
+    # Running tasks one after another - total time is the sum of both tasks
+    # The 'await' keyword here pauses main() until task1() is complete
+    print("--- Sequential execution ---")
+    result1 = await task1()  # Wait for task1 to complete before starting task2
+    result2 = await task2()  # Only starts after task1 is fully completed
     
-    # Reset timer
+    # Calculate and show the total time (should be around 3 seconds)
+    print(f"Sequential results: {result1}, {result2}")
+    print(f"Sequential time: {time.time() - start:.2f} seconds")  # Should be ~3 seconds
+    
+    # Reset timer for the concurrent test
     start = time.time()
     
-    # Concurrent execution
+    # PART 2: CONCURRENT EXECUTION
+    # Running tasks concurrently - they run simultaneously from our perspective
+    # Total time is determined by the longest task (task1 in this case)
+    print("\n--- Concurrent execution ---")
+    
+    # asyncio.gather starts all coroutines concurrently and waits for all to complete
+    # Both task1() and task2() start running immediately
     results = await asyncio.gather(task1(), task2())
+    
+    # Calculate and show the total time (should be around 2 seconds)
     print(f"Concurrent results: {results}")
-    print(f"Concurrent time: {time.time() - start:.2f} seconds")
+    print(f"Concurrent time: {time.time() - start:.2f} seconds")  # Should be ~2 seconds
 
-# Run the event loop
+# Start the event loop and run the main coroutine
+# asyncio.run creates a new event loop, runs the coroutine, and closes the loop
 asyncio.run(main())
 
-# Output:
+# OUTPUT EXPLANATION:
+#
+# --- Sequential execution ---
 # Task 1 started
-# Task 1 completed
+# Task 1 completed     <-- Task 1 finishes after 2 seconds
 # Task 2 started
-# Task 2 completed
+# Task 2 completed     <-- Task 2 starts after Task 1 finishes, taking another 1 second
 # Sequential results: Result 1, Result 2
-# Sequential time: 3.00 seconds
-# Task 1 started
+# Sequential time: 3.00 seconds   <-- Total time is 2 + 1 = 3 seconds
+#
+# --- Concurrent execution ---
+# Task 1 started       <-- Both tasks start at the same time
 # Task 2 started
-# Task 2 completed
-# Task 1 completed
+# Task 2 completed     <-- Task 2 completes after 1 second
+# Task 1 completed     <-- Task 1 completes after 2 seconds
 # Concurrent results: ['Result 1', 'Result 2']
-# Concurrent time: 2.00 seconds
+# Concurrent time: 2.00 seconds   <-- Total time is max(2, 1) = 2 seconds
 ```
 
 ### JavaScript Comparison

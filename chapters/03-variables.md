@@ -10,9 +10,76 @@ Unlike JavaScript, Python doesn't use keywords like `let`, `const`, or `var`. Va
 # Simple variable assignment
 name = "John"
 age = 30
+is_student = True
 ```
 
-Python is **dynamically typed**, meaning you don't need to declare a variable's type when you create it. The type is inferred from the value assigned to it. This is similar to JavaScript, but Python's type system is more robust.
+Python is **dynamically typed**, meaning you don't need to declare a variable's type when you create it. The type is inferred from the value assigned to it. This is similar to JavaScript, but Python's type system is more robust and consistent.
+
+### Variable Naming Conventions
+
+Python follows specific naming conventions that differ from JavaScript:
+
+```python
+# Python uses snake_case for variables (not camelCase like JavaScript)
+user_name = "John"          # Good Python style
+userName = "John"           # Valid but not Pythonic
+
+# Constants are typically UPPER_CASE
+MAX_CONNECTIONS = 100
+
+# Class names use PascalCase (like JavaScript)
+class UserAccount:
+    pass
+
+# Private variables conventionally start with underscore
+_internal_value = 42        # Signals "private" by convention
+
+# Double underscore triggers name mangling in classes
+class Person:
+    def __init__(self):
+        self.__private = "Hidden"  # Name mangling applied
+```
+
+### Variable Assignment Mechanics
+
+Python's assignment works differently from many other languages:
+
+```python
+# Variables are references to objects
+a = [1, 2, 3]  # 'a' references a list object
+b = a          # 'b' references the same list object as 'a'
+b.append(4)    # Modifies the list that both 'a' and 'b' reference
+print(a)       # Output: [1, 2, 3, 4]
+
+# To create a copy:
+c = a.copy()   # Creates a new list with the same contents
+c.append(5)    # Only modifies 'c'
+print(a)       # Still [1, 2, 3, 4]
+print(c)       # [1, 2, 3, 4, 5]
+```
+
+### Multiple Assignment
+
+Python allows assigning multiple variables at once:
+
+```python
+# Multiple assignment
+x, y, z = 1, 2, 3
+
+# Swapping values (no temporary variable needed)
+a, b = 10, 20
+a, b = b, a     # a becomes 20, b becomes 10
+
+# Extended unpacking (Python 3+)
+first, *rest = [1, 2, 3, 4, 5]
+print(first)    # 1
+print(rest)     # [2, 3, 4, 5]
+
+first, *middle, last = [1, 2, 3, 4, 5]
+print(first)    # 1
+print(middle)   # [2, 3, 4]
+print(last)     # 5
+```
 
 ## Python's Main Data Types
 

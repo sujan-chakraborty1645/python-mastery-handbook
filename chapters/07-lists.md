@@ -28,6 +28,45 @@ squares = [x*x for x in range(1, 6)]  # [1, 4, 9, 16, 25]
 even_numbers = [x for x in range(10) if x % 2 == 0]  # [0, 2, 4, 6, 8]
 doubled_evens = [x*2 for x in range(10) if x % 2 == 0]  # [0, 4, 8, 12, 16]
 
+# Creating a list with repeated values
+zeros = [0] * 5  # [0, 0, 0, 0, 0]
+pattern = [1, 2] * 3  # [1, 2, 1, 2, 1, 2]
+```
+
+### Memory Behavior and References
+
+Unlike JavaScript arrays, Python lists are actually arrays of references:
+
+```python
+# Both variables reference the same list
+original = [1, 2, 3]
+reference = original
+reference.append(4)
+print(original)  # [1, 2, 3, 4] - original is also modified
+
+# Creating independent copies
+shallow_copy = original.copy()  # or list(original) or original[:]
+import copy
+deep_copy = copy.deepcopy(original)  # Copies nested structures too
+```
+
+### Performance Characteristics
+
+Understanding Python list performance can help you write efficient code:
+
+```python
+# O(1) operations - constant time
+my_list = [1, 2, 3, 4, 5]
+my_list.append(6)     # Adding to the end is fast
+last_item = my_list.pop()  # Removing from the end is fast
+length = len(my_list)     # Getting length is fast
+is_present = 3 in my_list  # Membership testing is O(n)
+
+# O(n) operations - linear time
+my_list.insert(0, 0)  # Adding at beginning/middle shifts elements
+first_item = my_list.pop(0)  # Removing from beginning/middle shifts elements
+```
+
 # Creating a list of specific length with the same value
 zeros = [0] * 5  # [0, 0, 0, 0, 0]
 repeated_list = [1, 2] * 3  # [1, 2, 1, 2, 1, 2]

@@ -1031,6 +1031,18 @@ html {
   color: var(--color-btn-primary-text);
 }
 
+/* Style for active section within a chapter */
+.nav-link[href^="#fastapi-"].section-active {
+  background-color: rgba(var(--color-teal-500-rgb), 0.2);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Nested navigation for FastAPI sections */
+.nav-section:has(a[href^="#fastapi-"]) .nav-link {
+  padding-left: var(--space-16);
+}
+
 .nav-link.completed::after {
   content: '✓';
   position: absolute;

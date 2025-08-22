@@ -23,7 +23,89 @@ empty = {}
 
 # Dictionary comprehension
 square_map = {x: x**2 for x in range(5)}  # {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+
+# Creating dictionaries from sequences
+names = ['Alice', 'Bob', 'Charlie']
+ages = [25, 30, 35]
+user_ages = dict(zip(names, ages))  # {'Alice': 25, 'Bob': 30, 'Charlie': 35}
+
+# Dictionary with default values
+from collections import defaultdict
+word_count = defaultdict(int)  # Default value is 0
+for word in ['apple', 'banana', 'apple', 'orange', 'banana', 'apple']:
+    word_count[word] += 1
+# {'apple': 3, 'banana': 2, 'orange': 1}
 ```
+
+### Dictionary Keys
+
+Unlike JavaScript objects, Python dictionary keys can be of any immutable type:
+
+```python
+valid_dict = {
+    42: 'answer',           # Integer key
+    3.14: 'pi',             # Float key
+    True: 'boolean',        # Boolean key
+    (1, 2): 'tuple',        # Tuple key (immutable)
+    'name': 'string key',   # String key
+    frozenset([1, 2]): 'frozen set'  # Frozen set key (immutable)
+}
+
+# Invalid keys would cause TypeError:
+# invalid_dict = {[1, 2]: 'list key'}  # Lists are mutable
+# invalid_dict = {{1: 'a'}: 'dict key'}  # Dicts are mutable
+```
+
+### Ordered Dictionaries
+
+Since Python 3.7, dictionaries preserve insertion order, which means items are returned in the same order they were added. This was an implementation detail in Python 3.6 and became an official language feature in 3.7.
+
+```python
+# Create a dictionary of color hex codes
+colors = {
+    'red': '#FF0000',     # First item
+    'green': '#00FF00',   # Second item
+    'blue': '#0000FF'     # Third item
+}
+
+# Iterating preserves insertion order - you'll always get red, then green, then blue
+print("Iterating through dictionary preserves order:")
+for color, hex_code in colors.items():
+    print(f"{color}: {hex_code}")
+# Prints:
+# red: #FF0000
+# green: #00FF00
+# blue: #0000FF
+
+# Keys, values, and items all maintain the same order
+print("\nDifferent ways to iterate with the same order:")
+print("Keys:", list(colors.keys()))     # ['red', 'green', 'blue']
+print("Values:", list(colors.values())) # ['#FF0000', '#00FF00', '#0000FF']
+
+# Adding new items - they appear at the end
+print("\nAdding a new item:")
+colors['yellow'] = '#FFFF00'
+print(list(colors.keys()))  # ['red', 'green', 'blue', 'yellow']
+
+# Updating an existing item doesn't change its position
+print("\nUpdating an existing item:")
+colors['green'] = '#00FF00'  # Same value, just demonstrating
+print(list(colors.keys()))  # ['red', 'green', 'blue', 'yellow']
+
+# For Python 3.6 and earlier, use OrderedDict when order matters
+from collections import OrderedDict
+print("\nUsing OrderedDict (for Python 3.6 and earlier):")
+ordered = OrderedDict([('red', '#FF0000'), ('green', '#00FF00')])
+ordered['blue'] = '#0000FF'  # Add new key-value pair
+print(list(ordered.keys()))  # ['red', 'green', 'blue']
+
+# Key difference with OrderedDict: moving an item to the end
+print("\nMoving an existing key in OrderedDict:")
+ordered.move_to_end('red')
+print(list(ordered.keys()))  # ['green', 'blue', 'red']
+```
+
+This ordered nature makes dictionaries more predictable and useful for many applications where the order of items matters, such as configurations, step-by-step processing, etc.
 
 ### JavaScript Comparison
 
